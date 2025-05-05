@@ -1,3 +1,6 @@
+body {
+  overflow-x: hidden;
+}
 .question-header {
     background-color: #e6f0ff;
     padding: 10px;

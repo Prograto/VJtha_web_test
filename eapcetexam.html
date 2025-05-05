@@ -25,20 +25,92 @@
   
 
   <script>
-    const tname = document.getElementById("title");
-    tname.textContent = sessionStorage.getItem('selectedTitle') || "Mock Test";
+let violationCount = 0;
+const maxViolations = 1;
+let examSubmitted = false;  // ✅ Flag to prevent multiple submissions
 
-    function startExam() {
-      document.getElementById("intro").style.display = "none";
-      document.getElementById("exam").style.display = "block";
-      loadExamUI();
+function handleViolation(reason) {
+    if (examSubmitted) return;  // ✅ Prevent multiple alerts
+
+    violationCount++;
+    alert(`Violation detected: ${reason}`);
+
+    if (violationCount >= maxViolations) {
+        alert("Exam auto-submitted due to policy violation!");
+        submitExam();
+    }
+}
+
+function startExam() {
+    // Fullscreen request
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
     }
 
-    function loadExamUI() {
-      const script = document.createElement('script');
-      script.src = 'eapcetexam.js';
-      document.body.appendChild(script);
-    }
+    document.body.style.overflowX = 'hidden';
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            handleViolation("Tab switch or window change detected!");
+        }
+    });
+
+    window.onblur = () => {
+        handleViolation("Window unfocused!");
+    };
+
+    window.addEventListener("keydown", function (e) {
+        if (
+            e.key === "F12" ||
+            e.ctrlKey || e.metaKey || e.altKey
+        ) {
+            e.preventDefault();
+            handleViolation("Forbidden keyboard shortcut used!");
+        }
+    });
+
+    // ✅ Handle exit from fullscreen
+    document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+            handleViolation("Exited fullscreen mode!");
+        }
+    });
+
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("exam").style.display = "block";
+    loadExamUI();
+}
+
+function submitExam() {
+    if (examSubmitted) return;  // ✅ Prevent multiple submissions
+
+    saveAnswer();
+    const unanswered = answers.filter(a => !a).length;
+
+    const confirmSubmit = unanswered > 0
+        ? confirm(`You have ${unanswered} unanswered questions. Do you still want to submit?`)
+        : true;
+
+    if (!confirmSubmit) return;
+
+    let score = 0;
+    questions.forEach((q, i) => {
+        if (answers[i] && answers[i] === q.solution.toString()) score++;
+    });
+
+    alert(`You scored ${score} out of ${questions.length}`);
+    examSubmitted = true;  // ✅ Block further alerts or actions
+    window.location.href = "user.html";
+
+}
+
   </script>
   <script src="eapcetexam.js"></script>
 </body>
