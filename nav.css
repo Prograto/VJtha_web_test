@@ -1,0 +1,44 @@
+.navbar {
+    background-color: #2d105b !important;
+    padding: 10px 20px;
+  }
+  
+  .nav-link {
+    color: white !important;
+    transition: 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: #c16727 !important;
+    transform: translateY(-3px);
+  }
+  
+  .navbar-brand img {
+    height: 50px;
+  }
+  
+
+.mynav-menu a:hover {
+    color: #c16727; 
+}
+
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+  
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #007bff; 
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }

@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Playwrite+AR:wght@100..400&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Tint&family=Playwrite+AR:wght@100..400&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Tint&family=Jersey+10&family=Playwrite+AR:wght@100..400&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Tint&family=Jersey+10&family=Matemasie&family=Playwrite+AR:wght@100..400&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap');
+
+
+.main-font{
+    font-family: "Bungee Tint", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.sp-font{
+    font-family: "Matemasie", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(12, 143, 251);
+}
+
+.sub-font{
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.fan-font{
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}

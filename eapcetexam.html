@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EAPCET Exam</title>
+  <link rel="stylesheet" href="eapcetexam.css">
+</head>
+<body>
+  <div id="intro">
+    <h1>EAPCET Mock Exam</h1>
+    <h3>Title: <span id="title"></span></h3>
+    <p><strong>Instructions:</strong></p>
+    <ul>
+      <li>Total duration: 30 minutes</li>
+      <li>Each question carries 1 mark</li>
+      <li>No negative marking</li>
+      <li>Do not refresh the page during the exam</li>
+    </ul>
+    <button onclick="startExam()">Start Exam</button>
+  </div>
+
+  <!-- This div will hold the actual exam UI after start -->
+  <div id="exam" style="display: none;"></div>
+  
+
+  <script>
+    const tname = document.getElementById("title");
+    tname.textContent = sessionStorage.getItem('selectedTitle') || "Mock Test";
+
+    function startExam() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("exam").style.display = "block";
+      loadExamUI();
+    }
+
+    function loadExamUI() {
+      const script = document.createElement('script');
+      script.src = 'eapcetexam.js';
+      document.body.appendChild(script);
+    }
+  </script>
+  <script src="eapcetexam.js"></script>
+</body>
+</html>

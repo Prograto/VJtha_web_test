@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analog Clock</title>
+  <style>
+    body {
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .block-1 {
+      animation: fadeInUp 2s ease alternate;
+    }
+
+    .clock {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      border: 3px solid yellow;
+      border-radius: 50%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .clock::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: yellow;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .hand {
+      position: absolute;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hand i {
+      position: absolute;
+      width: 4px;
+      height: var(--hhe);
+      background: var(--hclr);
+      bottom: 50%;
+      border-radius: 8px;
+      transform-origin: bottom;
+    }
+
+    .time {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: rotate(calc(30deg * var(--i)));
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .time::after {
+      content: attr(data-num);
+      font-size: 18px;
+      color: yellow;
+      transform: rotate(calc(-30deg * var(--i)));
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="block-1">
+    <div class="clock">
+      <!-- Clock Hands -->
+      <div style="--hclr:rgba(155,0,0);--hhe:40px;" class="hand"><i id="hour"></i></div>
+      <div style="--hclr:rgba(0,155,0);--hhe:50px;" class="hand"><i id="minute"></i></div>
+      <div style="--hclr:rgba(0,0,155);--hhe:60px;" class="hand"><i id="second"></i></div>
+
+      <!-- Clock Numbers -->
+      <span style="--i:1" class="time" data-num="1"></span>
+      <span style="--i:2" class="time" data-num="2"></span>
+      <span style="--i:3" class="time" data-num="3"></span>
+      <span style="--i:4" class="time" data-num="4"></span>
+      <span style="--i:5" class="time" data-num="5"></span>
+      <span style="--i:6" class="time" data-num="6"></span>
+      <span style="--i:7" class="time" data-num="7"></span>
+      <span style="--i:8" class="time" data-num="8"></span>
+      <span style="--i:9" class="time" data-num="9"></span>
+      <span style="--i:10" class="time" data-num="10"></span>
+      <span style="--i:11" class="time" data-num="11"></span>
+      <span style="--i:12" class="time" data-num="12"></span>
+    </div>
+  </div>
+
+  <script>
+    const hourHand = document.getElementById("hour");
+    const minuteHand = document.getElementById("minute");
+    const secondHand = document.getElementById("second");
+
+    function updateClock() {
+      const now = new Date();
+      const hh = now.getHours();
+      const mm = now.getMinutes();
+      const ss = now.getSeconds();
+
+      const hourDeg = 30 * hh + mm / 2;
+      const minuteDeg = 6 * mm;
+      const secondDeg = 6 * ss;
+
+      hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+      secondHand.style.transform = `rotate(${secondDeg}deg)`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

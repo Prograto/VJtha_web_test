@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VJtha Exam Zone</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="user.css">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="scrollbar.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./images/vjthalogo.png" alt="VJtha Logo" width="100" height="50">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 sub-font">
+          <li class="nav-item me-lg-4">
+            <a class="nav-link" href="https://vjthalearning.com/">Home</a>
+          </li>
+          <li class="nav-item me-lg-4">
+            <a class="nav-link" href="https://vjthalearning.com/">About</a>
+          </li>
+          <li class="nav-item me-lg-4">
+            <a class="nav-link" href="https://vjthalearning.com/">Practice Exams</a>
+          </li>
+          <li class="nav-item me-lg-4">
+            <a class="nav-link" href="https://vjthalearning.com/">Services</a>
+          </li>
+          <li class="nav-item me-lg-4">
+            <a class="nav-link" href="https://vjthalearning.com/">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Image Carousel -->
+  <div id="movieCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/id/1005/1200/400" class="d-block w-100" alt="Movie 1">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/1018/1200/400" class="d-block w-100" alt="Movie 2">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/1021/1200/400" class="d-block w-100" alt="Movie 3">
+        </div>
+      </div>
+    
+      <!-- Left and Right Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+    
+      <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+  </div>
+  
+
+  <!-- About Us -->
+  <div style="display: flex; justify-content: center;">
+    <h2 class="section-heading main-font">About Us</h2>
+  </div>  
+  <div class="container my-4">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-6 text-center text-md-start">
+        <div class="clock position-relative mx-auto">
+          <div style="--hclr:rgba(155,0,0);--hhe:40px;" class="hand"><i id="hour"></i></div>
+          <div style="--hclr:rgba(0,155,0);--hhe:50px;" class="hand"><i id="minute"></i></div>
+          <div style="--hclr:rgba(0,0,155);--hhe:60px;" class="hand"><i id="second"></i></div>
+
+          <span style="--i:1" class="time" data-num="1"></span>
+          <span style="--i:2" class="time" data-num="2"></span>
+          <span style="--i:3" class="time" data-num="3"></span>
+          <span style="--i:4" class="time" data-num="4"></span>
+          <span style="--i:5" class="time" data-num="5"></span>
+          <span style="--i:6" class="time" data-num="6"></span>
+          <span style="--i:7" class="time" data-num="7"></span>
+          <span style="--i:8" class="time" data-num="8"></span>
+          <span style="--i:9" class="time" data-num="9"></span>
+          <span style="--i:10" class="time" data-num="10"></span>
+          <span style="--i:11" class="time" data-num="11"></span>
+          <span style="--i:12" class="time" data-num="12"></span>
+        </div>
+
+        <div class="clockquote mt-4">
+          <h3 class="sub-font" style="color: yellow;">Keep Clam to It!</h3>
+          <h5 class="sp-font" style="color: rgb(38, 73, 53);">- Our Platform Stands for:</h5>
+          <h3 class="text fan-font"></h3>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-md-2 d-md-block">
+        <div class="right-content p-4 border rounded shadow-sm bg-light">
+          <h5 class="mb-3 sub-font">Welcome to VJTHA Learning! Exam Zone.</h5>
+          <p>VJTHA Learning is a versatile platform that supports competitive exam preparation through targeted aptitude and reasoning practice. It offers engaging brain games like puzzles and Sudoku to enhance thinking skills. Learners can access study materials for B.Tech, Polytechnic, and more, along with opportunities to earn certifications. The platform also features tools like a resume builder and sections for current affairs and general knowledge. Creative expression is encouraged through the Talent Hub and festival-themed content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div style="display: flex; justify-content: center;">
+      <h2 class="section-heading main-font">Exam Zone</h2>
+    </div>  
+    <!-- Card Grid -->
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/aptitude.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Aptitude and Reasonsing</h5>
+              <p class="card-text">Experience the calmness of nature with this view.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=logical" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/english.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">English test</h5>
+              <p class="card-text">Get ready for a thrilling adventure through the mountains.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=english" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/ssc.png"class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">SSC Exam</h5>
+              <p class="card-text">Escape to a peaceful destination away from the city.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=ssc" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/eapcet.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Eapcet Exam</h5>
+              <p class="card-text">Experience the calmness of nature with this view.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=eapcet" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/gate.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Gate Exam</h5>
+              <p class="card-text">Get ready for a thrilling adventure through the mountains.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=gate" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/mains.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Mains Exam</h5>
+              <p class="card-text">Escape to a peaceful destination away from the city.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=mains" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/polycet.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Polycet Exam</h5>
+              <p class="card-text">Get ready for a thrilling adventure through the mountains.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=polycet" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card custom-card">
+            <img src="./images/aprjc.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">APRJC Exam</h5>
+              <p class="card-text">Escape to a peaceful destination away from the city.</p>
+              <div class="d-flex justify-content-center">
+                <a href="papers.html?title=aprjc" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div style="display: flex; justify-content: center;" class="heading">
+    <h2 class="section-heading main-font mb-0">Stats</h2>
+  </div>
+  <div class="main-container">
+    <div class="logo-container">
+      <img src="./images/logo.png" alt="VJtha Logo">
+    </div>
+
+    <div class="stats-container" id="stats">
+      <div class="stat-box">
+        <div class="icon">😊</div>
+        <div class="number" data-target="4000">0</div>
+        <div class="label">Daily Active Students</div>
+      </div>
+      <div class="stat-box">
+        <div class="icon">📝</div>
+        <div class="number" data-target="1000">0</div>
+        <div class="label">Tests / Materials</div>
+      </div>
+      <div class="stat-box">
+        <div class="icon">⏳</div>
+        <div class="number" data-target="2">0</div>
+        <div class="label">Year of Experience</div>
+      </div>
+      <div class="stat-box">
+        <div class="icon">🎓</div>
+        <div class="number" data-target="2052">0</div>
+        <div class="label">Certificates</div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    //clock
+    const hourHand = document.getElementById("hour");
+    const minuteHand = document.getElementById("minute");
+    const secondHand = document.getElementById("second");
+
+    function updateClock() {
+      const now = new Date();
+      const hh = now.getHours();
+      const mm = now.getMinutes();
+      const ss = now.getSeconds();
+
+      const hourDeg = 30 * hh + mm / 2;
+      const minuteDeg = 6 * mm;
+      const secondDeg = 6 * ss;
+
+      hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+      secondHand.style.transform = `rotate(${secondDeg}deg)`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+
+    const texts = [
+      "🎯 Aptitude & Reasoning Practice",
+      "🧠 Brain Games ",
+      "📚 Study Materials",
+      "🏆 Certification Programs",
+      "👩‍🎨 Talent Hub",
+      "📰 Current Affairs & GK",
+      "📄 Resume Builder",
+      "🎉 Festival & Event Highlights"
+    ];
+
+    let index = 0;
+    const textElement = document.querySelector(".text");
+
+    function changetext() {
+      textElement.classList.remove("show");
+      setTimeout(() => {
+        textElement.innerHTML = texts[index];
+        textElement.classList.add("show");
+        index = (index + 1) % texts.length;
+      }, 100);
+    }
+
+    setInterval(changetext, 3000);
+
+    changetext();
+
+
+  </script>
+  <!-- Bootstrap JS Bundle -->
+   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="user.js"></script>
+
+</body>
+</html>

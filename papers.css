@@ -1,0 +1,113 @@
+
+/* Card container styling using CSS Grid */
+.card-container {
+  display: grid;
+  margin-top: 15%;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
+  padding: 20px;
+  justify-items: center;
+}
+
+
+/* Ensure card has relative positioning */
+.l_card {
+  position: relative; /* Ensure this line is present */
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 25vw;
+  padding: 20px;
+  text-align: center;
+  margin: 0px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+      grid-template-columns: repeat(2, 1fr); 
+  }
+  .l_card {
+    max-width: 100%; /* Override the desktop limit */
+  }
+}
+
+
+.l_card:hover {
+  transform: rotateX(10deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.l_card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.l_card img:hover{
+  transform: rotate(5deg);
+}
+
+.l_card h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.l_card p {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.l_card::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00ff88);
+  bottom: 0;
+  left: 0;
+  animation: move-line 3s infinite;
+  z-index: 1; 
+}
+
+button {
+  background-color: #007bff;
+  color: white;              
+  padding: 10px 20px;        
+  border: none;              
+  border-radius: 8px;        
+  cursor: pointer;           
+  font-size: 16px;           
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3; 
+  transform: scale(1.05);    
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+@keyframes move-line {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: -100%; }
+}
+
+/*pagination*/
+.pagination-controls {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#page-indicator {
+  font-size: 16px;
+  font-weight: bold;
+}
