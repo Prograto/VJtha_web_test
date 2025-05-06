@@ -20,73 +20,91 @@
     <button onclick="startExam()">Start Exam</button>
   </div>
 
+  <div id="submitCard" style="display: none; padding: 20px; border-radius: 10px; background-color: #f4f4f4; box-shadow: 0 2px 8px rgba(0,0,0,0.2); max-width: 400px; margin: 20px auto; text-align: center;">
+    <h2>Submission Summary</h2>
+    <p><strong>User ID:</strong> <span id="userIdDisplay"></span></p>
+    <p><strong>Total Questions Answered:</strong> <span id="questionsAnswered"></span></p>
+    <p><strong>Marks Scored:</strong> <span id="marksScored"></span></p>
+    <button onclick="goBack()" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Go Back</button>
+  </div>
+  
+  <div id="message" style="padding: 10px; color: white; background-color: red; text-align: center; display: none;"></div>
   <!-- This div will hold the actual exam UI after start -->
   <div id="exam" style="display: none;"></div>
   
 
   <script>
-let violationCount = 0;
-const maxViolations = 1;
-let examSubmitted = false;  // ✅ Flag to prevent multiple submissions
+    let violationCount = 0;
+    const maxViolations = 1;
+    let examSubmitted = false;  // ✅ Flag to prevent multiple submissions
 
-function handleViolation(reason) {
-    if (examSubmitted) return;  // ✅ Prevent multiple alerts
+    function handleViolation(reason) {
+        if (examSubmitted) return;  // ✅ Prevent multiple alerts
 
-    violationCount++;
-    alert(`Violation detected: ${reason}`);
+        violationCount++;
+        showMessage(`Violation detected: ${reason}`);
 
-    if (violationCount >= maxViolations) {
-        alert("Exam auto-submitted due to policy violation!");
-        submitExam();
-    }
-}
-
-function startExam() {
-    // Fullscreen request
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
+        if (violationCount >= maxViolations) {
+            showMessage("Exam auto-submitted due to policy violation!", "red");
+            submitExam();
+        }
     }
 
-    document.body.style.overflowX = 'hidden';
-
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            handleViolation("Tab switch or window change detected!");
+    function startExam() {
+        // Fullscreen request
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
         }
-    });
 
-    window.onblur = () => {
-        handleViolation("Window unfocused!");
-    };
+        document.body.style.overflowX = 'hidden';
 
-    window.addEventListener("keydown", function (e) {
-        if (
-            e.key === "F12" ||
-            e.ctrlKey || e.metaKey || e.altKey
-        ) {
-            e.preventDefault();
-            handleViolation("Forbidden keyboard shortcut used!");
-        }
-    });
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // ✅ Handle exit from fullscreen
-    document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
-            handleViolation("Exited fullscreen mode!");
-        }
-    });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                handleViolation("Tab switch or window change detected!");
+            }
+        });
 
-    document.getElementById("intro").style.display = "none";
-    document.getElementById("exam").style.display = "block";
-    loadExamUI();
-}
+        window.onblur = () => {
+            handleViolation("Window unfocused!");
+        };
+
+        window.addEventListener("keydown", function (e) {
+            if (
+                e.key === "F12" ||
+                e.key === "Escape" ||
+                e.ctrlKey || e.metaKey || e.altKey
+            ) {
+                e.preventDefault();
+                handleViolation("Forbidden keyboard shortcut used!");
+            }
+        });
+
+        // ✅ Handle exit from fullscreen
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+                handleViolation("Exited fullscreen mode!");
+            }
+        });
+
+        document.getElementById("intro").style.display = "none";
+        document.getElementById("exam").style.display = "block";
+        renderExamUI();
+    }
+
+    function showMessage(text, color = "red") {
+        const msgDiv = document.getElementById("message");
+        msgDiv.textContent = text;
+        msgDiv.style.backgroundColor = color;
+        msgDiv.style.display = "block";
+        msgDiv.style.zIndex = "1001"
+    }
 
   </script>
   <script src="eapcetexam.js"></script>

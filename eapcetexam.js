@@ -77,17 +77,19 @@ function renderExamUI() {
       const btn = document.createElement("button");
       btn.textContent = i + 1;
   
+      // Determine status
+      const visited = visitedQuestions[i];
       const answer = answers[i];
-      if (i === currentIndex) {
-        btn.className = "palette-btn visited"; // mark visited
-      }
   
-      if (answer === null) {
-        btn.className = "palette-btn not-answered";
-        counts.notAnswered++;
+      if (!visited) {
+        btn.className = "palette-btn not-visited";
+        counts.notVisited++;
       } else if (answer === "review") {
         btn.className = "palette-btn marked";
         counts.markedForReview++;
+      } else if (answer === null) {
+        btn.className = "palette-btn not-answered";
+        counts.notAnswered++;
       } else {
         btn.className = "palette-btn answered";
         counts.answered++;
@@ -97,7 +99,6 @@ function renderExamUI() {
         saveAnswer();
         currentIndex = i;
         displayQuestion();
-        renderPalette(); // refresh palette on click
       };
   
       palette.appendChild(btn);
@@ -106,14 +107,16 @@ function renderExamUI() {
     // Update the status counts visually
     document.getElementById("answered-count").textContent = counts.answered;
     document.getElementById("not-answered-count").textContent = counts.notAnswered;
+    document.getElementById("not-visited-count").textContent = counts.notVisited;
     document.getElementById("marked-count").textContent = counts.markedForReview;
   }
-  
   
   
   let questions = [];
   let currentIndex = 0;
   let answers = [];
+  let visitedQuestions = [];
+
   
   function loadQuestions() {
     const sheetName = sessionStorage.getItem('selectedTitle');
@@ -124,6 +127,8 @@ function renderExamUI() {
       .then(data => {
         questions = data;
         answers = new Array(questions.length).fill(null);
+        visitedQuestions = new Array(questions.length).fill(false);
+
         displayQuestion();
         renderPalette();
         startTimer(180);
@@ -139,11 +144,16 @@ function renderExamUI() {
     document.getElementById("qno").textContent = currentIndex + 1;
     document.getElementById("question-img").src = q.img_question;
   
+    visitedQuestions[currentIndex] = true; // 👈 mark current as visited
+  
     const options = document.getElementsByName("option");
     options.forEach(opt => {
       opt.checked = (answers[currentIndex] === opt.value);
     });
+  
+    renderPalette();
   }
+  
   
   function nextQuestion() {
     saveAnswer();
@@ -182,19 +192,78 @@ function renderExamUI() {
   
   
   function submitExam() {
+    if (examSubmitted) return;
+    examSubmitted = true;
+    clearInterval(timerInterval);
     saveAnswer();
     const unanswered = answers.filter(a => !a).length;
     if (unanswered > 0) {
-      const confirmSubmit = confirm(`You have ${unanswered} unanswered questions. Do you still want to submit?`);
-      if (!confirmSubmit) return;
+        const confirmSubmit = confirm(`You have ${unanswered} unanswered questions. Do you still want to submit?`);
+        if (!confirmSubmit) {
+            examSubmitted = false;
+            return;
+        }
     }
+
     let score = 0;
     questions.forEach((q, i) => {
-      if (answers[i] && answers[i] === q.solution.toString()) score++;
+        if (answers[i] && answers[i] === q.solution.toString()) score++;
     });
-    alert(`You scored ${score} out of ${questions.length}`);
-  }
-  
-  
-  renderExamUI();
+    
+    showMessage(`Submitted:You scored ${score} out of ${questions.length}`, "green");
+    showSubmitCard(questions.length, score);
+    submitMarks(score);
+    
+}
+const userid = localStorage.getItem('userid');
+
+function showSubmitCard(totalQuestions, marksScored) {
+  document.getElementById("userIdDisplay").innerText = userid || "Not Found";
+  document.getElementById("questionsAnswered").innerText = totalQuestions;
+  document.getElementById("marksScored").innerText = marksScored;
+
+  document.getElementById("submitCard").style.display = "block";
+}
+
+function goBack() {
+  window.location.href = "user.html";
+}
+
+
+function submitMarks(score) {
+  const marksUrl = "https://script.google.com/macros/s/AKfycbwHlnCOURvtxNMqx_hpz7A2rWzS13C9RTDILdotBCB9Dbw84HCgvGb4dcnOk9P2OWjLwg/exec";
+  const exam = sessionStorage.getItem('title');
+  const examname = sessionStorage.getItem('selectedTitle');
+
+  const params = new URLSearchParams({
+    action: 'submitmarks',
+    userid: userid,
+    exam: exam,
+    examname: examname,
+    score: score
+  });
+
+  fetch(`${marksUrl}?${params.toString()}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.error || data.success);
+      alert(data.error || data.success);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("Failed to submit marks.");
+    });
+}
+
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'F5') || (e.ctrlKey && e.key === 'r')) {
+      e.preventDefault();
+    }
+  });
+
+    // Warn before reload or page close
+    window.addEventListener('beforeunload', function (e) {
+        e.preventDefault();
+    });
   

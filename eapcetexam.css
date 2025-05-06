@@ -68,11 +68,18 @@ body {
   .palette-btn {
     width: 30px;
     height: 30px;
+    margin: 4px;
+    border-radius: 50%;
+    border: none;
+    color: white;
     font-weight: bold;
-    border: 1px solid #aaa;
-    background-color: #d9d9d9;
-    cursor: pointer;
   }
+  
+  .palette-btn.answered { background-color: green; }
+  .palette-btn.not-answered { background-color: red; }
+  .palette-btn.not-visited { background-color: gray; }
+  .palette-btn.marked { background-color: orange; }
+  
 
   .status-panel {
     border: 1px solid #ccc;
@@ -118,6 +125,11 @@ body {
   
   .palette-btn.visited {
     border: 2px solid blue;
+  }
+
+  #question-palette{
+    height: 50vh;
+    overflow-y: auto;
   }
 
   .time{
