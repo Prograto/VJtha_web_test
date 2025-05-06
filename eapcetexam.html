@@ -88,29 +88,6 @@ function startExam() {
     loadExamUI();
 }
 
-function submitExam() {
-    if (examSubmitted) return;  // ✅ Prevent multiple submissions
-
-    saveAnswer();
-    const unanswered = answers.filter(a => !a).length;
-
-    const confirmSubmit = unanswered > 0
-        ? confirm(`You have ${unanswered} unanswered questions. Do you still want to submit?`)
-        : true;
-
-    if (!confirmSubmit) return;
-
-    let score = 0;
-    questions.forEach((q, i) => {
-        if (answers[i] && answers[i] === q.solution.toString()) score++;
-    });
-
-    alert(`You scored ${score} out of ${questions.length}`);
-    examSubmitted = true;  // ✅ Block further alerts or actions
-    window.location.href = "user.html";
-
-}
-
   </script>
   <script src="eapcetexam.js"></script>
 </body>

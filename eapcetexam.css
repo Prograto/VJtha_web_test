@@ -119,4 +119,41 @@ body {
   .palette-btn.visited {
     border: 2px solid blue;
   }
+
+  .time{
+    margin-left: 50vw;
+  }
+
+  .exam-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .question-img{
+      width: 100%;
+      max-width: 80%;
+    }
+    .exam-layout {
+      flex-direction: column;
+    }
+  
+    .question-section,
+    .sidebar {
+      width: 100%;
+      display: block;
+    }
+  
+    .sidebar {
+      position: static;
+      height: auto;
+    }
+  
+    .time {
+      margin-left: 15vw;
+    }
+  }
+  
+  
   

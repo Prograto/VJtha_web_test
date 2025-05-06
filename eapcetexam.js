@@ -5,7 +5,7 @@ function renderExamUI() {
         <div class="question-section">
           <div class="question-header">
             <strong>Question No. <span id="qno">1</span></strong>
-            <span style="margin-left: 25vw"><strong>Time Left: <span id="timer">180:00</span></strong></span>
+            <span class="time"><strong>Time Left: <span id="timer">180:00</span></strong></span>
           </div>
           <div class="question-body">
             <img id="question-img" src="" alt="Question Image" class="question-img" />
@@ -42,7 +42,25 @@ function renderExamUI() {
     loadQuestions();
   }
   
+  let timerInterval;
 
+  function startTimer(durationInMinutes) {
+    let timeLeft = durationInMinutes * 60; // in seconds
+    const timerDisplay = document.getElementById("timer");
+
+    timerInterval = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      timeLeft--;
+
+      if (timeLeft < 0) {
+        clearInterval(timerInterval);
+        alert("Time is up! Exam will be auto-submitted.");
+        submitExam();
+      }
+    }, 1000);
+  }
 
   function renderPalette() {
     const palette = document.getElementById("question-palette");
@@ -108,6 +126,7 @@ function renderExamUI() {
         answers = new Array(questions.length).fill(null);
         displayQuestion();
         renderPalette();
+        startTimer(180);
       })
       .catch(err => {
         console.error("Failed to load questions:", err);
@@ -163,7 +182,6 @@ function renderExamUI() {
   
   
   function submitExam() {
-    startTimer(180);
     saveAnswer();
     const unanswered = answers.filter(a => !a).length;
     if (unanswered > 0) {
@@ -180,23 +198,3 @@ function renderExamUI() {
   
   renderExamUI();
   
-
-  let timerInterval;
-
-function startTimer(durationInMinutes) {
-  let timeLeft = durationInMinutes * 60; // in seconds
-  const timerDisplay = document.getElementById("timer");
-
-  timerInterval = setInterval(() => {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    timeLeft--;
-
-    if (timeLeft < 0) {
-      clearInterval(timerInterval);
-      alert("Time is up! Exam will be auto-submitted.");
-      submitExam();
-    }
-  }, 1000);
-}
