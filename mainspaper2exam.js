@@ -37,6 +37,48 @@ let answers = [];
 let visitedQuestions = [];
 let currentIndex = 0;
 
+function getQuestionKey(question) {
+  return JSON.stringify(question);
+}
+
+function shuffleQuestionsOnce(questionsList) {
+  const uniqueQuestions = [];
+  const seen = new Set();
+
+  for (const question of questionsList) {
+    const key = getQuestionKey(question);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    uniqueQuestions.push(question);
+  }
+
+  const storageKey = `question-order:${title}:${sheetName || ""}`;
+  const savedOrder = sessionStorage.getItem(storageKey);
+
+  if (savedOrder) {
+    try {
+      const order = JSON.parse(savedOrder);
+      if (Array.isArray(order) && order.length === uniqueQuestions.length) {
+        const questionMap = new Map(uniqueQuestions.map(question => [getQuestionKey(question), question]));
+        const restoredQuestions = order.map(key => questionMap.get(key));
+        if (restoredQuestions.every(Boolean)) {
+          return restoredQuestions;
+        }
+      }
+    } catch (error) {
+      console.warn("Invalid saved question order, reshuffling.", error);
+    }
+  }
+
+  for (let i = uniqueQuestions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [uniqueQuestions[i], uniqueQuestions[j]] = [uniqueQuestions[j], uniqueQuestions[i]];
+  }
+
+  sessionStorage.setItem(storageKey, JSON.stringify(uniqueQuestions.map(getQuestionKey)));
+  return uniqueQuestions;
+}
+
 /***********************
  UI RENDER
 ************************/
@@ -111,7 +153,7 @@ function loadQuestions() {
         return;
       }
 
-      questions = data;
+      questions = shuffleQuestionsOnce(data);
       answers = new Array(questions.length).fill(null);
       visitedQuestions = new Array(questions.length).fill(false);
       currentIndex = 0;
